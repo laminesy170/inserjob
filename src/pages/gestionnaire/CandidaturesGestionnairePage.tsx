@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Card } from '@/components/UI/Card'
-import { Badge, BadgeCandidature } from '@/components/UI/Badge'
+import { BadgeCandidature } from '@/components/UI/Badge'
 import { Select } from '@/components/UI/Select'
 import { SkeletonList } from '@/components/UI/SkeletonCard'
 import { EmptyState } from '@/components/UI/EmptyState'

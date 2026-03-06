@@ -1,4 +1,4 @@
-import { MapPin, Calendar, Building2, Eye, Edit, MoreVertical } from 'lucide-react'
+import { MapPin, Calendar, Building2, Eye, Edit } from 'lucide-react'
 import { Card } from '@/components/UI/Card'
 import { BadgeContrat } from '@/components/UI/Badge'
 import { Badge } from '@/components/UI/Badge'

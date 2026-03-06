@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { FileText, Search, User, Eye, CheckCircle, XCircle, Clock, Send } from 'lucide-react'
 import { Card } from '@/components/UI/Card'
-import { Badge, BadgeCandidature } from '@/components/UI/Badge'
+import { BadgeCandidature } from '@/components/UI/Badge'
 import { Button } from '@/components/UI/Button'
 import { SkeletonList } from '@/components/UI/SkeletonCard'
 import { EmptyState } from '@/components/UI/EmptyState'
