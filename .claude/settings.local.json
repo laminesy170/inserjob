@@ -8,7 +8,8 @@
       "Bash(npm install)",
       "mcp__Claude_Preview__preview_start",
       "Bash(npx tsc -b)",
-      "Bash(npx vite build)"
+      "Bash(npx vite build)",
+      "Bash(npm run build)"
     ]
   }
 }
