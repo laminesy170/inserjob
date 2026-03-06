@@ -6,7 +6,9 @@
       "Bash(npm --version)",
       "Bash(export PATH=\"/opt/homebrew/bin:$PATH\")",
       "Bash(npm install)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npx tsc -b)",
+      "Bash(npx vite build)"
     ]
   }
 }
