@@ -11,12 +11,13 @@ const TEMPLATE_IDS = {
   CANCELLED: 4, // Invitation annulée
 };
 
-const TEMPLATE_SUBJECTS: Record<string, string> = {
-  INVITATION: 'Vous êtes invité à répondre au questionnaire CapOrientation 360',
-  REMINDER: 'Rappel: Répondez au questionnaire CapOrientation 360',
-  COMPLETED: 'Votre rapport CapOrientation 360 est prêt',
-  CANCELLED: 'Votre invitation a été annulée',
-};
+// Template subjects can be used for future fallback email generation
+// const TEMPLATE_SUBJECTS: Record<string, string> = {
+//   INVITATION: 'Vous êtes invité à répondre au questionnaire CapOrientation 360',
+//   REMINDER: 'Rappel: Répondez au questionnaire CapOrientation 360',
+//   COMPLETED: 'Votre rapport CapOrientation 360 est prêt',
+//   CANCELLED: 'Votre invitation a été annulée',
+// };
 
 export async function POST(request: NextRequest) {
   // Verify request has correct auth header
@@ -48,7 +49,6 @@ export async function POST(request: NextRequest) {
     for (const email of pendingEmails) {
       try {
         const templateId = TEMPLATE_IDS[email.message_type as keyof typeof TEMPLATE_IDS] || 1;
-        const subject = TEMPLATE_SUBJECTS[email.message_type] || 'CapOrientation 360';
 
         // Send via Brevo
         const result = await brevoService.sendTemplateEmail({

@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ScoringEngine } from '@/lib/scoring/engine';
 import { scoringRulesV1 } from '@/lib/scoring/rules';
 import { v4 as uuid } from 'uuid';
-import { hashToken } from '@/lib/crypto';
 
 export async function POST(
   request: NextRequest,
@@ -13,7 +12,14 @@ export async function POST(
   try {
     const supabase = createServerComponentClient({ cookies } as any);
 
-    const tokenHash = hashToken(params.token, process.env.INVITATION_TOKEN_PEPPER || '');
+    const tokenHash = require('crypto')
+      .createHash('sha256')
+      .update(
+        params.token +
+          ':' +
+          (process.env.INVITATION_TOKEN_PEPPER || '')
+      )
+      .digest('hex');
 
     // Get invitation and session
     const { data: invitation } = await (supabase as any)

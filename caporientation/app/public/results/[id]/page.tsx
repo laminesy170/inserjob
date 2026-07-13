@@ -30,21 +30,20 @@ export default function ResultsPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchResult();
+    const load = async () => {
+      try {
+        const res = await fetch(`/api/results/${id}`);
+        if (!res.ok) throw new Error('Result not found');
+        const data = await res.json();
+        setResult(data);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
   }, [id]);
-
-  async function fetchResult() {
-    try {
-      const res = await fetch(`/api/results/${id}`);
-      if (!res.ok) throw new Error('Result not found');
-      const data = await res.json();
-      setResult(data);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
 
   const getLevelColor = (level: string) => {
     switch (level) {
@@ -102,7 +101,7 @@ export default function ResultsPage() {
         {/* Header */}
         <Card className="mb-8 bg-gradient-to-br from-primary-600 to-primary-700 text-white">
           <CardHeader>
-            <h1 className="text-3xl font-bold">Votre rapport d'auto-positionnement</h1>
+            <h1 className="text-3xl font-bold">Votre rapport d&apos;auto-positionnement</h1>
           </CardHeader>
           <CardContent>
             <div className="text-center py-6">
@@ -137,7 +136,7 @@ export default function ResultsPage() {
 
                 {dim.recommendations.length > 0 && (
                   <div>
-                    <h4 className="font-semibold mb-2">Pistes d'amélioration</h4>
+                    <h4 className="font-semibold mb-2">Pistes d&apos;amélioration</h4>
                     <ul className="list-disc list-inside space-y-1">
                       {dim.recommendations.map((rec, idx) => (
                         <li key={idx} className="text-gray-700">
@@ -181,7 +180,7 @@ export default function ResultsPage() {
         </div>
 
         <p className="text-center text-gray-600 text-sm mt-8">
-          Rapport généré le {new Date(result.generatedAt).toLocaleDateString('fr-FR')}
+          Rapport généré le {new Date(result.generatedAt).toLocaleDateString("fr-FR")}
         </p>
       </div>
     </div>

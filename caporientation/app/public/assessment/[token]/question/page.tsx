@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useSearchParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -72,21 +72,20 @@ export default function QuestionPage() {
   }, [currentQuestion, answers, token, sessionId]);
 
   useEffect(() => {
-    fetchQuestionnaire();
+    const load = async () => {
+      try {
+        const res = await fetch(`/api/public/assessment/${token}/questionnaire`);
+        if (!res.ok) throw new Error('Failed to load questionnaire');
+        const data = await res.json();
+        setQuestionnaire(data.questionnaire);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
   }, [token]);
-
-  async function fetchQuestionnaire() {
-    try {
-      const res = await fetch(`/api/public/assessment/${token}/questionnaire`);
-      if (!res.ok) throw new Error('Failed to load questionnaire');
-      const data = await res.json();
-      setQuestionnaire(data.questionnaire);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
 
   const handleAnswer = (value: number) => {
     setAnswers((prev) => ({

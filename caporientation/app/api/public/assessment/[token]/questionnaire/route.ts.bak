@@ -1,7 +1,6 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { hashToken } from '@/lib/crypto';
 
 export async function GET(
   request: NextRequest,
@@ -10,7 +9,14 @@ export async function GET(
   try {
     const supabase = createServerComponentClient({ cookies } as any);
 
-    const tokenHash = hashToken(params.token, process.env.INVITATION_TOKEN_PEPPER || '');
+    const tokenHash = require('crypto')
+      .createHash('sha256')
+      .update(
+        params.token +
+          ':' +
+          (process.env.INVITATION_TOKEN_PEPPER || '')
+      )
+      .digest('hex');
 
     const { data: invitation } = await (supabase as any)
       .from('invitations')

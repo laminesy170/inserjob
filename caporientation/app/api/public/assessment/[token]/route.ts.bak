@@ -11,7 +11,14 @@ export async function GET(
     const supabase = createServerComponentClient({ cookies } as any);
 
     // Find invitation by token hash
-    const tokenHash = hashToken(params.token, process.env.INVITATION_TOKEN_PEPPER || '');
+    const tokenHash = require('crypto')
+      .createHash('sha256')
+      .update(
+        params.token +
+          ':' +
+          (process.env.INVITATION_TOKEN_PEPPER || '')
+      )
+      .digest('hex');
 
     const { data: invitation, error } = await (supabase as any)
       .from('invitations')

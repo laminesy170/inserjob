@@ -27,21 +27,20 @@ export default function AssessmentPage() {
   const [agreed, setAgreed] = useState(false);
 
   useEffect(() => {
-    fetchMetadata();
+    const load = async () => {
+      try {
+        const res = await fetch(`/api/public/assessment/${token}`);
+        if (!res.ok) throw new Error('Invalid or expired invitation');
+        const data = await res.json();
+        setMetadata(data);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
   }, [token]);
-
-  async function fetchMetadata() {
-    try {
-      const res = await fetch(`/api/public/assessment/${token}`);
-      if (!res.ok) throw new Error('Invalid or expired invitation');
-      const data = await res.json();
-      setMetadata(data);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
 
   const handleStart = async () => {
     if (!agreed) return;
@@ -92,7 +91,7 @@ export default function AssessmentPage() {
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
               <h2 className="font-semibold text-blue-900 mb-2">À propos de ce questionnaire</h2>
               <p className="text-blue-800 text-sm">
-                Cet outil d'auto-positionnement vous aide à identifier vos points forts et axes de progression
+                Cet outil d&apos;auto-positionnement vous aide à identifier vos points forts et axes de progression
                 dans la gestion de votre parcours professionnel. Il prend environ {metadata.questionnaire.estimatedDuration} minutes.
               </p>
             </div>
@@ -104,10 +103,10 @@ export default function AssessmentPage() {
                   <strong>Responsable de traitement :</strong> [Organisation name]
                 </p>
                 <p>
-                  <strong>Finalité :</strong> Aide à l'orientation professionnelle
+                  <strong>Finalité :</strong> Aide à l&apos;orientation professionnelle
                 </p>
                 <p>
-                  <strong>Durée de conservation :</strong> 24 mois après la fin de l'accompagnement
+                  <strong>Durée de conservation :</strong> 24 mois après la fin de l&apos;accompagnement
                 </p>
                 <p>
                   <strong>Vos droits :</strong> Vous pouvez à tout moment accéder, rectifier ou demander la suppression de vos données.
@@ -124,8 +123,8 @@ export default function AssessmentPage() {
                   className="mt-1"
                 />
                 <span className="text-sm">
-                  J'ai lu les informations ci-dessus et j'accepte de répondre à ce questionnaire.
-                  Je comprends que cet outil n'est pas un diagnostic mais un support pour mon accompagnement.
+                  J&apos;ai lu les informations ci-dessus et j&apos;accepte de répondre à ce questionnaire.
+                  Je comprends que cet outil n&apos;est pas un diagnostic mais un support pour mon accompagnement.
                 </span>
               </label>
             </div>
