@@ -1,0 +1,35 @@
+# Node
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Build
+.next
+dist
+build
+out
+
+# Environment
+.env.local
+.env.*.local
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage
+.nyc_output
+test-results
+
+# Playwright
+test-results/
+playwright-report/

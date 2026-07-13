@@ -150,6 +150,7 @@ export async function POST(
 
     return NextResponse.json({
       status: 'RAPPORT_GENERE',
+      resultId,
       beneficiarySummary: {
         dimensions: scoringResult.dimensions,
         overallScore: scoringResult.overallScore,
