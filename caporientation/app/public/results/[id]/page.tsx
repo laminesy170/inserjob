@@ -156,9 +156,25 @@ export default function ResultsPage() {
           <Button
             onClick={() => window.print()}
             className="flex-1"
-            variant="outline"
+            variant="secondary"
           >
-            Imprimer le rapport
+            Imprimer
+          </Button>
+          <Button
+            onClick={() =>
+              fetch(`/api/results/${id}/export.pdf`)
+                .then((r) => r.blob())
+                .then((blob) => {
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `rapport-${id}.pdf`;
+                  a.click();
+                })
+            }
+            className="flex-1"
+          >
+            Télécharger PDF
           </Button>
           <Button
             onClick={() =>
@@ -173,9 +189,9 @@ export default function ResultsPage() {
                 })
             }
             className="flex-1"
-            variant="outline"
+            variant="secondary"
           >
-            Télécharger en JSON
+            JSON
           </Button>
         </div>
 

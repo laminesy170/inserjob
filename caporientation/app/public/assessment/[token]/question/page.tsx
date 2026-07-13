@@ -222,7 +222,7 @@ export default function QuestionPage() {
                 onClick={handlePrev}
                 disabled={currentIndex === 0}
                 className="flex-1"
-                variant="outline"
+                variant="secondary"
               >
                 Précédente
               </Button>

@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { hashToken } from '@/lib/crypto';
 
 export async function POST(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: { token: string } }
 ) {
   try {

@@ -1,0 +1,37 @@
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "env": [
+    {
+      "key": "NEXT_PUBLIC_SUPABASE_URL",
+      "description": "Supabase project URL"
+    },
+    {
+      "key": "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "description": "Supabase anonymous key"
+    },
+    {
+      "key": "SUPABASE_SERVICE_ROLE_KEY",
+      "description": "Supabase service role key (server-only)"
+    },
+    {
+      "key": "INVITATION_TOKEN_PEPPER",
+      "description": "Secret pepper for token hashing (32+ chars)"
+    },
+    {
+      "key": "CRON_SECRET",
+      "description": "Secret token for cron jobs"
+    },
+    {
+      "key": "BREVO_API_KEY",
+      "description": "Brevo transactional email API key"
+    },
+    {
+      "key": "NEXT_PUBLIC_APP_URL",
+      "description": "Application base URL"
+    }
+  ],
+  "regions": ["cdg1"]
+}

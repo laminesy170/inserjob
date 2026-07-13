@@ -13,7 +13,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const user = await requireCounselor();
+    await requireCounselor();
     const supabase = createServerComponentClient({ cookies } as any);
 
     // Get notes for this invitation
